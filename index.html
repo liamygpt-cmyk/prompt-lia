@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#050706">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Prompt LIA">
+  <title>Prompt LIA</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="setup" class="setup">
+    <header class="brand">
+      <div class="logo">LIA</div>
+      <div>
+        <h1>Prompt LIA</h1>
+        <p>Teleprompter com câmera para vídeos verticais</p>
+      </div>
+    </header>
+
+    <label for="script">Seu roteiro</label>
+    <textarea id="script" rows="12" placeholder="Cole ou escreva o roteiro aqui…"></textarea>
+
+    <div class="setup-grid">
+      <label>Velocidade
+        <input id="setupSpeed" type="range" min="10" max="90" value="34">
+      </label>
+      <label>Tamanho
+        <input id="setupFont" type="range" min="24" max="58" value="38">
+      </label>
+    </div>
+
+    <button id="openCamera" class="primary">Abrir câmera</button>
+    <p class="privacy">O vídeo fica no seu aparelho. Nada é enviado para servidores.</p>
+  </main>
+
+  <main id="recorder" class="recorder hidden" aria-hidden="true">
+    <video id="camera" autoplay muted playsinline></video>
+    <div class="shade"></div>
+
+    <section id="promptWindow" class="prompt-window" aria-label="Teleprompter">
+      <div id="promptText" class="prompt-text"></div>
+    </section>
+
+    <div class="topbar">
+      <button id="back" class="icon-btn" aria-label="Voltar">‹</button>
+      <div id="recordingBadge" class="recording-badge hidden"><span></span><b id="timer">00:00</b></div>
+      <button id="flipCamera" class="icon-btn" aria-label="Trocar câmera">↻</button>
+    </div>
+
+    <div id="countdown" class="countdown hidden"></div>
+
+    <section id="controls" class="controls">
+      <div class="main-actions">
+        <button id="restartPrompt" class="round secondary" aria-label="Reiniciar texto">↺</button>
+        <button id="record" class="record-button" aria-label="Gravar"><span></span></button>
+        <button id="togglePrompt" class="round secondary" aria-label="Iniciar ou pausar texto">▶</button>
+      </div>
+      <button id="showSettings" class="settings-toggle">Ajustes</button>
+      <div id="settings" class="settings hidden">
+        <label>Velocidade <input id="speed" type="range" min="10" max="90" value="34"></label>
+        <label>Texto <input id="fontSize" type="range" min="24" max="58" value="38"></label>
+        <label>Altura <input id="promptY" type="range" min="6" max="55" value="16"></label>
+        <label>Fundo <input id="backdrop" type="range" min="0" max="85" value="45"></label>
+        <label class="switch-row"><span>Espelhar prévia</span><input id="mirror" type="checkbox" checked></label>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="resultDialog">
+    <h2>Gravação pronta</h2>
+    <video id="resultVideo" controls playsinline></video>
+    <div class="dialog-actions">
+      <button id="discard" class="secondary-action">Descartar</button>
+      <button id="save" class="primary">Salvar / compartilhar</button>
+    </div>
+    <p id="saveHint">No iPhone, escolha “Salvar Vídeo” na folha de compartilhamento.</p>
+  </dialog>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
